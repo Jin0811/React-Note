@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <title>Document</title>
+</head>
+<body>
+  <!--
+    函数式组件（简单组件）：不包含state的
+    类式组件（复杂组件）：包含state
+
+    高版本的react当中，函数式组件也可以拥有state，即hooks的概念
+
+    onClick={changeWeather}
+    changeWeather方法不是实例调用的，而是直接调用的，所以changeWeather当中的this指向了undefined
+
+    解决this指向方法一：
+    在constructor当中添加：`this.changeWeather = this.changeWeather.bind(this);` 使用bind来为changeWeather方法绑定this
+    这里相当于是从Weather类的原型对象上拿到了changeWeather函数，往当前实例上添加了一个修改了this指向的新方法
+    现在，Weather类的原型对象上、Weather类的实例对象上都有changeWeather方法
+    JSX当中onClick={this.changeWeather}，其实调用的是当前实例身上的changeWeather方法，并没有调用Weather类原型上的方法
+
+    状态不可直接更改，必须借助this.setState
+    语法：this.setState({ key: value });
+    注意：setState会进行合并，重名的会进行覆盖，不重名的不会修改，并不是替换
+
+    constructor只会调用一次，因为只创建了一个类式组件的实例
+    render会调用n+1次，第一次为初始化渲染，后面每次更新state，即setState，就会重新调用render方法
+  -->
+  <div id='test'></div>
+</body>
+<script src='./0_lib/react.development.js'></script>
+<script src='./0_lib/react-dom.development.js'></script>
+<script src='./0_lib/babel.min.js'></script>
+<script type='text/babel'>
+  // 创建类式组件
+  class Weather extends React.Component{
+    constructor(props){
+      super(props);
+      this.state = {
+        isHot: true
+      };
+      this.changeWeather = this.changeWeather.bind(this);
+    }
+    // 修改天气
+    changeWeather(){
+      console.log(this);
+      this.setState({
+        isHot: !this.state.isHot
+      })
+    }
+    render(){
+      return <h2 onClick={this.changeWeather}>今天天气很{ this.state.isHot ? "炎热" : "凉爽" }</h2>
+    }
+  }
+  // 渲染组件到页面
+  ReactDOM.render(<Weather />, document.getElementById('test'))
+</script>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <title>Document</title>
+  <style>
+    .title{
+      background-color: royalblue;
+    }
+  </style>
+</head>
+<body>
+  <!--
+    JSX语法规则：
+    1、定义虚拟dom时，不要写引号
+    2、标签当中混入js表达式时要用{}
+    3、样式的类名指定不要用class，要用className
+    4、内联样式要用以下的格式进行编写：style={{ color: 'white', fontSize: '50px' }}
+    5、虚拟dom必须只能有一个根标签
+    6、标签必须闭合
+    7、标签首字母
+      7.1 如果是小写字母开头，则转换标签为html当中同名元素，如果没有对应的同名元素，则报错
+      7.2 如果是大写字母开头，react去渲染对应的组件，若组件未定义，则会报错
+  -->
+  <div id='test'></div>
+</body>
+<script src='./0_lib/react.development.js'></script>
+<script src='./0_lib/react-dom.development.js'></script>
+<script src='./0_lib/babel.min.js'></script>
+<script type='text/babel'>
+  let myId = "myh1";
+  let myData = "hello";
+  const VDOM = (
+    <div>
+      <h1 className="title" id={myId}>
+        <span style={{ color: 'white', fontSize: '50px' }}>{ myData }</span>
+      </h1>
+      <input />
+    </div>
+  )
+  ReactDOM.render(VDOM, document.getElementById('test'))
+</script>
+</html>

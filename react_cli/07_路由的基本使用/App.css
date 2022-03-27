@@ -1,0 +1,34 @@
+.app{
+  width: 80%;
+  margin: 0 auto;
+}
+
+h2{
+  border-bottom: 1px solid #000;
+  padding-bottom: 10px;
+}
+.container{
+  display: flex;
+}
+.links{
+  width: 200px;
+  padding-right: 10px;
+  display: flex;
+  flex-direction: column;
+}
+.links > .link-item{
+  height: 40px;
+  line-height: 40px;
+  padding: 0px 10px;
+  border-radius: 5px;
+  text-decoration: none;
+  outline: none;
+  color: #000;
+}
+.links > .active-item{
+  background-color: royalblue;
+  color: #fff;
+}
+.content{
+  width: calc(100% - 200px);
+}

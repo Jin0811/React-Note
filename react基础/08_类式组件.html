@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <title>Document</title>
+</head>
+<body>
+  <!--
+    创建类式组件时的要求：
+    1、必须继承 React.Component 类
+    2、必须用render方法
+    3、render方法必须要有返回值
+
+    类式组件当中的render放在哪里？  —— 类的原型对象上，供实例使用
+
+    执行 ReactDOM.render(<MyComponent />, document.getElementById("test")); 发生了什么？
+    1、react解析组件标签，找到了MyComponent组件
+    2、发现组件是用类定义的，随后new出来一个该类的实例，并通过该实例调用到原型上的render方法
+    3、将render方法返回的虚拟dom转换为真实dom，随后呈现在页面中
+
+    render当中的this执行的就是类式组件的实例对象，即类式组件的组件实例对象
+  -->
+  <div id='test'></div>
+</body>
+<script src='./0_lib/react.development.js'></script>
+<script src='./0_lib/react-dom.development.js'></script>
+<script src='./0_lib/babel.min.js'></script>
+<script type='text/babel'>
+  // 创建类式组件
+  class MyComponent extends React.Component{
+    render(){
+      console.log(this)
+      return <h2>我是用类定义的类式组件（适用于【复杂组件】的定义）</h2>
+    }
+  }
+  // 渲染组件到页面
+  ReactDOM.render(<MyComponent />, document.getElementById('test'))
+</script>
+</html>

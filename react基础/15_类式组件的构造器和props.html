@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <title>Document</title>
+</head>
+<body>
+  <!--
+    1、类式组件当中的constructor可写可不写，以下两种情况可以写：
+      1.1 通过给 this.state 赋值对象来初始化内部 state。
+      1.2 为事件处理函数绑定实例
+    2、constructor当中super是必须要写的，可以给super传递props，也可以不传递props
+      2.1 传递props：功能正常，不会出现this.props === undefined的bug
+      2.2 不传递props：this.props在构造函数中可能会出现未定义的bug
+
+    要不直接不写constructor，写了constructor就必须要接收props，并且传递给super
+    如果希望在constructor当中，使用this.props，就需要按上面的规则传递props
+  -->
+  <div id='test1'></div>
+</body>
+<script src='./0_lib/react.development.js'></script>
+<script src='./0_lib/react-dom.development.js'></script>
+<script src='./0_lib/babel.min.js'></script>
+<script src='./0_lib/prop-types.js'></script>
+<script type='text/babel'>
+  // 创建类式组件
+  class Person extends React.Component{
+    constructor(props){
+      super(); 
+      console.log(this.props); // undefined
+    }
+    render(){
+      return (
+        <ul>
+          <li>姓名：{ this.props.name }</li>
+          <li>性别：{ this.props.sex }</li>
+          <li>年龄：{ this.props.age }</li>
+        </ul>
+      )
+    }
+  }
+  // 渲染组件到页面
+  ReactDOM.render(<Person name="张三" age={18} sex="男" />, document.getElementById('test1'))
+</script>
+</html>

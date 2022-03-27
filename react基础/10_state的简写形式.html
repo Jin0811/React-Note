@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <title>Document</title>
+</head>
+<body>
+  <!--
+    解决this指向方法二：
+    定义changeWeather时使用箭头函数的方法进行定义，语法如下：
+    ```
+      changeWeather = () => {
+        this.setState({ isHot: !this.state.isHot })
+      }
+    ```
+    箭头函数本身没有this，但是会往上寻找父级的this
+    changeWeather就找到了父级类当中的this，而类当中的this指向的就是当前实例对象
+  -->
+  <div id='test'></div>
+</body>
+<script src='./0_lib/react.development.js'></script>
+<script src='./0_lib/react-dom.development.js'></script>
+<script src='./0_lib/babel.min.js'></script>
+<script type='text/babel'>
+  // 创建类式组件
+  class Weather extends React.Component{
+    // 初始化state
+    state = {
+      isHot: true
+    }
+    // 使用箭头函数来定义changeWeather，可以解决this指向问题
+    changeWeather = () => {
+      this.setState({
+        isHot: !this.state.isHot
+      })
+    }
+    render(){
+      return <h2 onClick={this.changeWeather}>今天天气很{ this.state.isHot ? "炎热" : "凉爽" }</h2>
+    }
+  }
+  // 渲染组件到页面
+  ReactDOM.render(<Weather />, document.getElementById('test'))
+</script>
+</html>

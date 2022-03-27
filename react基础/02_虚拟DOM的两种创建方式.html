@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <title>Document</title>
+</head>
+<body>
+  <!--
+    使用JSX来创建虚拟dom，更加灵活，但是需要引入babel
+    使用纯JS创建虚拟dom，有标签嵌套时，不太方便，但是不需要引入babel
+  -->
+  <div id='test1'></div>
+  <div id='test2'></div>
+</body>
+<script src='./0_lib/react.development.js'></script>
+<script src='./0_lib/react-dom.development.js'></script>
+<script src='./0_lib/babel.min.js'></script>
+<script type='text/babel'>
+  // 1、使用JSX创建（需要引入babel）
+  const VDOM1 = (
+    <h1 id="title">
+      <span>Hello React!</span>
+    </h1>
+  );
+  ReactDOM.render(VDOM1, document.getElementById("test1"));
+</script>
+<script type='text/javascript'>
+  // 2、纯JS创建虚拟dom：const VDOM = React.createElement(标签名, 标签属性, 标签内容);
+  let spanDom = React.createElement("span", {}, "Hello React!");
+  const VDOM2 = React.createElement('h1', { id: "title" }, spanDom);
+  ReactDOM.render(VDOM2, document.getElementById("test2"));
+</script>
+</html>

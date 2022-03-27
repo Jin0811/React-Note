@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <title>Document</title>
+</head>
+<body>
+  <!--
+    回调函数形式的ref，会在更新state数据时，调用两次，第一次的参数为null，第二次的参数为当前节点
+    这样做的目的主要在于清空旧的ref，一般情况下，并不会影响什么
+  -->
+  <div id='test'></div>
+</body>
+<script src='./0_lib/react.development.js'></script>
+<script src='./0_lib/react-dom.development.js'></script>
+<script src='./0_lib/babel.min.js'></script>
+<script src='./0_lib/prop-types.js'></script>
+<script type='text/babel'>
+  class Demo extends React.Component{
+    state = {
+      isHot: true
+    }
+    // 点击按钮提示数据
+    showData = () => {
+      let value = this.input1.value;
+      console.log(value);
+    }
+    changeWeather = () => {
+      this.setState({
+        isHot: !this.state.isHot
+      });
+    }
+    saveInput = (currentNode) => {
+      this.input1 = currentNode;
+      console.log(this.input1);
+    }
+    render() {
+      return (
+        <div>
+          <input ref={this.saveInput} type="text" placeholder="点击按钮提示数据" />
+          <button onClick={this.showData} style={{ margin: "0px 40px 0px 10px" }}>点击按钮提示左侧的数据</button>
+          <h2>今天天气很{ this.state.isHot ? "炎热" : "凉爽" }</h2>
+          <button onClick={this.changeWeather}>点击切换天气</button>
+        </div>
+      )
+    }
+  }
+  ReactDOM.render(<Demo />, document.getElementById('test'))
+</script>
+</html>

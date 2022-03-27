@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <title>Document</title>
+</head>
+<body>
+  <div id='test'></div>
+</body>
+<script src='./0_lib/react.development.js'></script>
+<script src='./0_lib/react-dom.development.js'></script>
+<script src='./0_lib/babel.min.js'></script>
+<script src='./0_lib/prop-types.js'></script>
+<script type='text/babel'>
+  class Demo extends React.Component{
+    state = {
+      opacity: 1,
+    }
+    // 销毁组件
+    destroy = () => {
+      ReactDOM.unmountComponentAtNode(document.getElementById('test'));
+    }
+    // 组件挂载完成的钩子函数
+    componentDidMount(){
+      this.timer = setInterval(() => {
+        let { opacity } = this.state;
+        opacity = opacity - 0.1;
+        if(opacity <= 0){
+          opacity = 1;
+        }
+        this.setState({ opacity });
+      }, 200);
+    }
+    // 组件卸载之前的钩子函数
+    componentWillUnmount(){
+      clearInterval(this.timer);
+    }
+    render(){
+      return (
+        <div>
+          <h2 style={{ opacity: this.state.opacity }}>React生命周期</h2>
+          <button onClick={this.destroy}>销毁</button>
+        </div>
+      )
+    }
+  }
+  ReactDOM.render(<Demo />, document.getElementById('test'))
+</script>
+</html>

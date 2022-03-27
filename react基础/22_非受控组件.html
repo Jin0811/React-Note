@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <title>Document</title>
+</head>
+<body>
+  <!--
+    页面当中，输入类DOM的值，现用现取，就是非受控组件
+  -->
+  <div id='test'></div>
+</body>
+<script src='./0_lib/react.development.js'></script>
+<script src='./0_lib/react-dom.development.js'></script>
+<script src='./0_lib/babel.min.js'></script>
+<script src='./0_lib/prop-types.js'></script>
+<script type='text/babel'>
+  class Demo extends React.Component{
+    handleSubmit = (event) => {
+      event.preventDefault(); // 阻止默认事件
+      console.log(this.usernameDom.value, this.passwordDom.value);
+    }
+
+    render(){
+      return (
+        <div>
+          <form onSubmit={this.handleSubmit} action="http://www.baidu.com">
+            用户名：<input ref={c => this.usernameDom = c} type="text" name="username" />
+            密码：<input ref={c => this.passwordDom = c} type="password" name="password" />
+            <button>提交</button>
+          </form>
+        </div>
+      )
+    }
+  }
+  ReactDOM.render(<Demo />, document.getElementById('test'))
+</script>
+</html>

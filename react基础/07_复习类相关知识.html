@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <!--
+    1、构造器当中的this指向的是当前的实例对象
+    2、类当中的一般方法放在了Person这个类的原型对象上
+    3、通过类的实例调用类的一般方法，一般方法当中的this指向的就是当前实例对象
+    4、如果继承了其他类，并且写了constructor，则constructor当中必须调用super
+    5、super必须放在最开始，在调用this之前
+    6、类当中的构造器不是必需的，如果需要对实例进行一些初始化的操作，如添加指定属性时才需要写
+  -->
+</body>
+<script>
+  // 创建一个Person类
+  class Person{
+    constructor(name, age){
+      this.name = name;
+      this.age = age;
+    }
+    // 一般方法
+    speak(){
+      console.log(`${this.name}-${this.age}`);
+    }
+  }
+
+  // 创建一个Student类，继承Person类
+  class Student extends Person{
+    constructor(name, age, grade){
+      super(name, age);
+      this.grade = grade;
+    }
+    // 子类可以重写父类方法
+    speak(){
+      console.log(`重写父类方法：${this.name}-${this.age}`);
+    }
+    // 子类独有方法
+    study(){
+      console.log("我爱学习");
+    }
+  }
+
+  let s1 = new Student('tom', 18, "高中");
+  console.log(s1);
+  s1.speak();
+</script>
+</html>

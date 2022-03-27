@@ -1,0 +1,45 @@
+.app{
+  width: 80%;
+  margin: 0 auto;
+}
+
+.container{
+  display: flex;
+}
+.links{
+  width: 200px;
+  padding-right: 10px;
+  display: flex;
+  flex-direction: column;
+}
+.links > .link-item{
+  height: 40px;
+  line-height: 40px;
+  padding: 0px 10px;
+  border-radius: 5px;
+  text-decoration: none;
+  outline: none;
+  color: #000;
+}
+.links > .active-item{
+  background-color: royalblue;
+  color: #fff;
+}
+.content{
+  width: calc(100% - 200px);
+}
+
+
+.parent{
+  padding: 15px;
+  background-color: #1abc9c;
+  color: #fff;
+}
+.child{
+  padding: 15px;
+  background-color: #2ecc71;
+}
+.grand{
+  padding: 15px;
+  background-color: #27ae60;
+}

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <title>Document</title>
+</head>
+<body>
+  <!--
+    新版本，以下三个生命周期钩子需要修改为以下形式：
+    UNSAFE_componentWillMount
+    UNSAFE_componentWillUpdate
+    UNSAFE_componentWillReceiveProps
+  -->
+  <div id='test'></div>
+</body>
+<script src='./0_lib/17.0/react.development17.0.js'></script>
+<script src='./0_lib/17.0/react-dom.development17.0.js'></script>
+<script src='./0_lib/17.0/babel.min.js'></script>
+<script src='./0_lib/17.0/prop-types.js'></script>
+<script type='text/babel'>
+  class A extends React.Component{
+    // 构造器
+    constructor(props){
+      console.log("Demo - constructor");
+      super(props);
+    }
+
+    // 初始化状态
+    state = {
+      count: 0
+    }
+
+    // 组件将要挂载
+    UNSAFE_componentWillMount(){
+      console.log("Demo - componentWillMount 将要挂载");
+    }
+    // 组件挂载完成
+    componentDidMount(){
+      console.log("Demo - componentDidMount 挂载完成");
+    }
+    // 组件是否需要被更新，返回true则会进行更新，返回false不会进行更新
+    // shouldComponentUpdate是一个控制组件更新的阀门，如果不写shouldComponentUpdate，则默认返回true，如果写了，则必须返回一个布尔值
+    shouldComponentUpdate(){
+      console.log("Demo - shouldComponentUpdate 判断组件是否需要被更新");
+      return true
+    }
+    // 组件将要更新
+    UNSAFE_componentWillUpdate(){
+      console.log("Demo - componentWillUpdate 组件将要更新");
+    }
+    // 组件更新完成
+    componentDidUpdate(){
+      console.log("Demo - componentDidUpdate 组件更新完成");
+    }
+    // 组件将要被卸载
+    componentWillUnmount(){
+      console.log("Demo - componentWillUnmount 将要被卸载");
+    }
+
+    // 事件处理函数
+    add = () => {
+      let { count } = this.state;
+      this.setState({ count: count+1 });
+    }
+    // 销毁组件
+    destroy = () => {
+      ReactDOM.unmountComponentAtNode(document.getElementById('test'));
+    }
+    // 强制更新组件（强制更新，不会受到shouldComponentUpdate阀门的控制，即便返回false，一样可以更新）
+    force = () => {
+      this.forceUpdate();
+    }
+
+    render(){
+      console.log("Demo - render 挂载、渲染、更新");
+      return (
+        <div>
+          <h2>当前求和为：{this.state.count}</h2>
+          <button onClick={this.add}>点我+1</button>
+          <button onClick={this.destroy}>销毁组件</button>
+          <button onClick={this.force}>不更改state数据，强制进行更新</button>
+
+          <br/>
+          <B carName="123"></B>
+        </div>
+      )
+    }
+  }
+
+  class B extends React.Component{
+    // 构造器
+    constructor(props){
+      super(props);
+    }
+    UNSAFE_componentWillReceiveProps(props){
+      console.log(props);
+      console.log("B - componentWillReceiveProps");
+    }
+    render(){
+      return (
+        <div>
+          <h3>我是B组件，接收到的车是：{this.props.carName}</h3>
+        </div>
+      )
+    }
+  }
+  ReactDOM.render(<A />, document.getElementById('test'))
+</script>
+</html>

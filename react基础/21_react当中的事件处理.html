@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <title>Document</title>
+</head>
+<body>
+  <!--
+    1、通过onXXX属性指定事件处理函数（注意大小写）
+      1.1 react使用的是自定义（合成事件），而不是使用的原生DOM事件，这样是为了更好的兼容性
+      1.2 react中的事件是通过事件委托方式处理的（委托给组件最外层的元素），为的是高效
+    2、通过event.target得到发生事件的DOM元素对象（react不推荐过度使用ref）
+      譬如：在失去焦点显示数据时，可以在onBlur当中可以直接拿到当前DOM对象，无需再写ref
+  -->
+  <div id='test'></div>
+</body>
+<script src='./0_lib/react.development.js'></script>
+<script src='./0_lib/react-dom.development.js'></script>
+<script src='./0_lib/babel.min.js'></script>
+<script src='./0_lib/prop-types.js'></script>
+<script type='text/babel'>
+  class Demo extends React.Component{
+    myRef1 = React.createRef();
+    myRef2 = React.createRef();
+
+    // 点击按钮提示数据
+    showData = () => {
+      let value = this.myRef1.current.value;
+      console.log(value);
+    }
+
+    // 失去焦点，显示右边输入框的数据
+    showData2 = (event) => {
+      let value = event.target.value;
+      console.log(value);
+    }
+
+    render() {
+      return (
+        <div>
+          <input ref={this.myRef1} type="text" placeholder="点击按钮提示数据" />
+          <button onClick={this.showData} style={{ margin: "0px 40px 0px 10px" }}>点击按钮提示左侧的数据</button>
+          <input onBlur={this.showData2} type="text" placeholder="失去焦点显示数据" />
+        </div>
+      )
+    }
+  }
+  ReactDOM.render(<Demo />, document.getElementById('test'))
+</script>
+</html>

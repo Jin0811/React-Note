@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <title>Document</title>
+</head>
+<body>
+  <div id='test'></div>
+  
+</body>
+<script src='./0_lib/react.development.js'></script>
+<script src='./0_lib/react-dom.development.js'></script>
+<script src='./0_lib/babel.min.js'></script>
+<script src='./0_lib/prop-types.js'></script>
+<script type='text/babel'>
+  class A extends React.Component{
+    // 构造器
+    constructor(props){
+      super(props);
+    }
+
+    // 初始化状态
+    state = {
+      carName: "奔驰"
+    }
+
+    // 事件处理函数
+    changeCar = () => {
+      this.setState({ carName: "宝马" });
+    }
+
+    render(){
+      return (
+        <div>
+          <h1>我是A组件</h1>
+          <button onClick={this.changeCar}>换车</button>
+          <B carName={this.state.carName} />
+        </div>  
+      )
+    }
+  }
+
+  class B extends React.Component{
+    // 构造器
+    constructor(props){
+      super(props);
+    }
+
+    // 子组件将要接收新的props的钩子函数
+    // 注意：
+    // 这个钩子函数在第一次传入props时，并不会被调用
+    // 当重新传递props时（例如：父组件切点击了换车按钮），才会进行调用
+    componentWillReceiveProps(props){
+      console.log(props);
+      console.log("B - componentWillReceiveProps");
+    }
+
+    render(){
+      return (
+        <div>
+          <h3>我是B组件，接收到的车是：{this.props.carName}</h3>
+        </div>
+      )
+    }
+  }
+
+  ReactDOM.render(<A />, document.getElementById('test'))
+</script>
+</html>

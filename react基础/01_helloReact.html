@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <title>Document</title>
+</head>
+<body>
+  <div id='test'></div>
+</body>
+<script type="text/javascript" src='./0_lib/react.development.js'></script>
+<script type="text/javascript" src='./0_lib/react-dom.development.js'></script>
+<script type="text/javascript" src='./0_lib/babel.min.js'></script>
+<script type='text/babel'>
+  // 1、创建虚拟dom
+  const VDOM = <h1>Hello React!</h1> // 不能写引号，这是jsx的语法，不是字符串
+  // 2、渲染虚拟dom到页面
+  ReactDOM.render(VDOM, document.getElementById("test"))
+</script>
+</html>

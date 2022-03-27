@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <title>Document</title>
+</head>
+<body>
+  <!--
+    对组件的prop进行限制
+    在16版本之前，PropTypes对象是挂载到了React上
+    在16版本和之后，需要先引入prop-types.js，引入成功之后，全局就有了PropTypes
+  -->
+  <div id='test1'></div>
+  <div id='test2'></div>
+</body>
+<script src='./0_lib/react.development.js'></script>
+<script src='./0_lib/react-dom.development.js'></script>
+<script src='./0_lib/babel.min.js'></script>
+<script src='./0_lib/prop-types.js'></script>
+<script type='text/babel'>
+  // 创建类式组件
+  class Person extends React.Component{
+    render(){
+      return (
+        <ul>
+          <li>姓名：{ this.props.name }</li>
+          <li>性别：{ this.props.sex }</li>
+          <li>年龄：{ this.props.age+1 }</li>
+        </ul>
+      )
+    }
+  }
+  // 对组件的prop进行限制
+  Person.propTypes = {
+    name: PropTypes.string.isRequired, //  字符串、必传
+    sex: PropTypes.string, // 字符串
+    age: PropTypes.number, // 数字
+    speak: PropTypes.func // 函数
+  }
+  // 设置组件prop的默认值
+  Person.defaultProps = {
+    sex: "未知",
+    age: 18
+  }
+  // 渲染组件到页面
+  ReactDOM.render(<Person name="张三" speak={speak}/>, document.getElementById('test1'))
+  ReactDOM.render(<Person name="李四" age={19} sex="男" />, document.getElementById('test2'))
+
+  function speak() {
+    console.log("说话");
+  }
+</script>
+</html>

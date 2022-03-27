@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <title>Document</title>
+</head>
+<body>
+  <!--
+    高阶函数：如果一个函数符合下面两个规范中的任何一个，那该函数就是高阶函数
+    1、若a函数，接收的参数是一个函数，那么a就可以被称为高阶函数
+    2、若a函数，调用的返回值是一个函数，那么a就可以被称为高阶函数
+    常见的高阶函数有：Promise、setTimeout、arr.map()等
+
+    函数的柯里化：通过函数调用继续返回函数的方式，实现多次接收参数，最后统一处理的函数编码形式
+  -->
+  <div id='test'></div>
+</body>
+<script src='./0_lib/react.development.js'></script>
+<script src='./0_lib/react-dom.development.js'></script>
+<script src='./0_lib/babel.min.js'></script>
+<script src='./0_lib/prop-types.js'></script>
+<script type='text/babel'>
+  class Demo extends React.Component{
+    state = {
+      username: "",
+      password: "",
+    }
+
+    handleSubmit = (event) => {
+      event.preventDefault(); // 阻止默认事件
+      const { username, password } = this.state;
+      console.log(username, password);
+    }
+
+    saveFormData = (dataType) => {
+      return (event) => {
+        console.log(dataType,event.target.value);
+        this.setState({ [dataType]: event.target.value });
+      }
+    }
+
+    render(){
+      return (
+        <div>
+          <form onSubmit={this.handleSubmit} action="http://www.baidu.com">
+            用户名：<input onChange={this.saveFormData('username')} type="text" name="username" />
+            密码：<input onChange={this.saveFormData('password')} type="password" name="password" />
+            <button>提交</button>
+          </form>
+        </div>
+      )
+    }
+  }
+  ReactDOM.render(<Demo />, document.getElementById('test'))
+</script>
+
+<script>
+  // 演示函数的柯里化
+
+  // 不使用柯里化
+  function sum(a, b, c){
+    return a+b+c
+  }
+  let res1 = sum(1,2,3);
+  console.log(res1);
+
+  // 使用柯里化
+  function curryingSum(a){
+    return (b) => {
+      return (c) => {
+        return a+b+c
+      }
+    }
+  }
+  let res2 = curryingSum(1)(2)(3);
+  console.log(res2);
+</script>
+</html>

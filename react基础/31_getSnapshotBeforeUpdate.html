@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <title>Document</title>
+  <style>
+    .list{
+      width: 200px;
+      height: 150px;
+      background-color: royalblue;
+      overflow: auto;
+    }
+    .news{
+      height: 30px;
+    }
+  </style>
+</head>
+<body>
+  <div id='test'></div>
+</body>
+<script src='./0_lib/17.0/react.development17.0.js'></script>
+<script src='./0_lib/17.0/react-dom.development17.0.js'></script>
+<script src='./0_lib/17.0/babel.min.js'></script>
+<script src='./0_lib/17.0/prop-types.js'></script>
+<script type='text/babel'>
+  class Demo extends React.Component{
+
+    state = {
+      newsArr: []
+    }
+
+    componentDidMount(){
+      setInterval(() => {
+        const { newsArr } = this.state;
+        const news = `新闻${newsArr.length+1}`;
+        this.setState({ newsArr: [news, ...newsArr] }); 
+      }, 1000);
+    }
+    // 处于render和componentDidUpdate之间，会获取到一个快照
+    // getSnapshotBeforeUpdate的任何返回值，都会传递给componentDidUpdate
+    // 这里可以拿到旧的DOM的一些信息，传递给componentDidUpdate
+    getSnapshotBeforeUpdate(){
+      return this.refs.list.scrollHeight;
+    }
+    componentDidUpdate(preProps, preState, scrollHeight){
+      this.refs.list.scrollTop += this.refs.list.scrollHeight - scrollHeight
+    }
+
+    render(){
+      return (
+        <div>
+          <div className="list" ref="list">
+            {
+              this.state.newsArr.map((item, index) => {
+                return <div key={index} className="news">{ item }</div>
+              })
+            }
+          </div>
+        </div>
+      )
+    }
+  }
+  ReactDOM.render(<Demo count={199} />, document.getElementById('test'))
+</script>
+</html>

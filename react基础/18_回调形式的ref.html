@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <title>Document</title>
+</head>
+<body>
+  <div id='test'></div>
+</body>
+<script src='./0_lib/react.development.js'></script>
+<script src='./0_lib/react-dom.development.js'></script>
+<script src='./0_lib/babel.min.js'></script>
+<script src='./0_lib/prop-types.js'></script>
+<script type='text/babel'>
+  class Demo extends React.Component{
+    // 点击按钮提示数据
+    showData = () => {
+      let value = this.input1.value;
+      console.log(value);
+    }
+    // 失去焦点，显示右边输入框的数据
+    showData2 = () => {
+      let value = this.input2.value;
+      console.log(value);
+    }
+    render() {
+      return (
+        <div>
+          <input ref={c => this.input1 = c} type="text" placeholder="点击按钮提示数据" />
+          <button onClick={this.showData} style={{ margin: "0px 40px 0px 10px" }}>点击按钮提示左侧的数据</button>
+          <input ref={c => this.input2 = c} onBlur={this.showData2} type="text" placeholder="失去焦点显示数据" />
+        </div>
+      )
+    }
+  }
+  ReactDOM.render(<Demo />, document.getElementById('test'))
+</script>
+</html>

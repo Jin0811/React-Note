@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <title>Document</title>
+</head>
+<body>
+  <!--
+    注意点：
+    1、函数名称大写
+    2、render时，写函数式组件的标签
+    3、babel翻译完成之后，会自动开启严格模式，导致了window当中函数的this指向到了undefined
+
+    执行 ReactDOM.render(<MyComponent />, document.getElementById("test")); 发生了什么？
+    1、react解析组件标签，找到了MyComponent组件
+    2、发现组件是使用函数定义的，随后调用该函数，将返回的虚拟dom，转换为真实dom，随后呈现在页面当中
+  -->
+  <div id='test'></div>
+</body>
+<script src='./0_lib/react.development.js'></script>
+<script src='./0_lib/react-dom.development.js'></script>
+<script src='./0_lib/babel.min.js'></script>
+<script type='text/babel'>
+  function MyComponent() {
+    // console.log(this); // undefined
+    return <h2>我是用函数定义的组件（适用于【简单组件】的定义）</h2>
+  }
+  ReactDOM.render(<MyComponent />, document.getElementById("test"));
+</script>
+</html>
