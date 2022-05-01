@@ -37,7 +37,11 @@
     name: PropTypes.string.isRequired, //  字符串、必传
     sex: PropTypes.string, // 字符串
     age: PropTypes.number, // 数字
-    speak: PropTypes.func // 函数
+    speak: PropTypes.func, // 函数
+    union: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]), // 联合类型，union可以传递string或者number
   }
   // 设置组件prop的默认值
   Person.defaultProps = {
@@ -45,8 +49,8 @@
     age: 18
   }
   // 渲染组件到页面
-  ReactDOM.render(<Person name="张三" speak={speak}/>, document.getElementById('test1'))
-  ReactDOM.render(<Person name="李四" age={19} sex="男" />, document.getElementById('test2'))
+  ReactDOM.render(<Person name="张三" speak={speak} union="传递字符串"/>, document.getElementById('test1'))
+  ReactDOM.render(<Person name="李四" age={19} sex="男" union={100} />, document.getElementById('test2'))
 
   function speak() {
     console.log("说话");
