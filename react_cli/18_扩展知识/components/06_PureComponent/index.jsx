@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 
 // PureComponent会进行浅比较，如果内存地址一样，则会造成页面无法更新的问题
 // 因为PureComponent判断前后一致，直接返回了false
-// PureComponent可以帮我们自动进行阀门的控制，是因为PureComponent重写了PureComponent方法
+// PureComponent可以帮我们自动进行阀门的控制，是因为PureComponent重写了shouldComponentUpdate方法
 
 class Parent extends PureComponent {
   state = {
